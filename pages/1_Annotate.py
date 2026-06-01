@@ -30,17 +30,23 @@ if uploaded_file is not None:
         f"Case: {case_id}"
     )
 
-    canvas_result = st_canvas(
-        fill_color="rgba(255,0,0,0.3)",
-        stroke_width=3,
-        stroke_color="#ff0000",
-        background_image=image,
-        update_streamlit=True,
-        height=image.size[1],
-        width=image.size[0],
-        drawing_mode="freedraw",
-        key="canvas"
-    )
+   st.image(
+    image,
+    caption="Angiogram",
+    use_container_width=True
+)
+
+canvas_result = st_canvas(
+    fill_color="rgba(255,0,0,0.3)",
+    stroke_width=3,
+    stroke_color="#ff0000",
+    background_color="#000000",
+    update_streamlit=True,
+    height=600,
+    width=800,
+    drawing_mode="freedraw",
+    key=f"canvas_{case_id}"
+)
 
     if st.button("Save Annotation"):
 
