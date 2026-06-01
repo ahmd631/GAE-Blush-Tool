@@ -21,6 +21,7 @@ uploaded_file = st.file_uploader(
 if uploaded_file is not None:
 
     image = Image.open(uploaded_file)
+    image = image.convert("RGB")
 
     case_id = Path(
         uploaded_file.name
