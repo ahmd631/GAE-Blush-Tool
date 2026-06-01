@@ -41,10 +41,10 @@ canvas_result = st_canvas(
     fill_color="rgba(255,0,0,0.3)",
     stroke_width=3,
     stroke_color="#ff0000",
-    background_color="#000000",
+    background_image=image,
     update_streamlit=True,
-    height=600,
-    width=800,
+    height=image.height,
+    width=image.width,
     drawing_mode="freedraw",
     key=f"canvas_{case_id}"
 )
