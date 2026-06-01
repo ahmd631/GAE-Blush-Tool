@@ -70,7 +70,6 @@ def find_images_in_main_folder():
 
     image_files = sorted(image_files)
 
-    # Avoid accidentally showing generated mask images if any exist
     image_files = [
         f for f in image_files
         if "_mask" not in f.stem.lower()
@@ -102,7 +101,6 @@ def canvas_to_mask(canvas_result):
     blue = data[:, :, 2]
     alpha = data[:, :, 3]
 
-    # Detect red drawing pixels only
     mask = (
         (red > 120) &
         (green < 120) &
@@ -214,10 +212,11 @@ if mode == "Annotate ROI":
 
     with col1:
         st.subheader("Image Preview")
+
         st.image(
             canvas_image,
             caption=f"Preview: {selected_image.name}",
-            use_container_width=False
+            use_column_width=True
         )
 
         st.subheader("Draw ROI on Image")
@@ -269,7 +268,7 @@ if mode == "Annotate ROI":
                     st.image(
                         mask_png,
                         caption="Saved Binary ROI Mask",
-                        use_container_width=True
+                        use_column_width=True
                     )
 
                     with open(outfile, "rb") as f:
@@ -360,21 +359,18 @@ if mode == "Compare Readers":
             col3.metric("Mean IoU", f"{results['IoU'].mean():.3f}")
             col4.metric("Mean Overlap", f"{results['Overlap'].mean():.1f}")
 
-            # Dice plot
             fig1, ax1 = plt.subplots(figsize=(6, 4))
             ax1.boxplot(results["Dice"])
             ax1.set_ylabel("Dice")
             ax1.set_title("Dice Coefficient")
             st.pyplot(fig1)
 
-            # IoU plot
             fig2, ax2 = plt.subplots(figsize=(6, 4))
             ax2.boxplot(results["IoU"])
             ax2.set_ylabel("IoU")
             ax2.set_title("IoU")
             st.pyplot(fig2)
 
-            # Scatter plot
             area1_col = f"Area_{reader1}"
             area2_col = f"Area_{reader2}"
 
@@ -392,7 +388,6 @@ if mode == "Compare Readers":
             ax3.set_title("Reader Area Correlation")
             st.pyplot(fig3)
 
-            # Bland-Altman
             mean_area = (
                 results[area1_col] +
                 results[area2_col]
@@ -416,7 +411,6 @@ if mode == "Compare Readers":
             ax4.set_title("Bland-Altman Plot")
             st.pyplot(fig4)
 
-            # Overlay section
             st.subheader("Overlay Viewer")
 
             selected_overlay_image = st.selectbox(
@@ -450,7 +444,7 @@ if mode == "Compare Readers":
 
                 st.image(
                     overlay,
-                    use_container_width=True
+                    use_column_width=True
                 )
 
             else:
