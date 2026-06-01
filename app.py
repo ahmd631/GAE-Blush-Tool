@@ -1,11 +1,17 @@
 import streamlit as st
 
-st.title("GAE Blush Annotation Tool")
-
-uploaded_file = st.file_uploader(
-    "Upload angiogram",
-    type=["png", "jpg", "jpeg"]
+st.set_page_config(
+    page_title="GAE Blush Tool",
+    layout="wide"
 )
 
-if uploaded_file:
-    st.success("Image uploaded!")
+st.title("GAE Blush Annotation Platform")
+
+st.markdown("""
+### Welcome
+
+Use the sidebar to navigate:
+
+- Annotate → Draw ROI and save annotations
+- Analysis → Calculate Dice, IoU, overlays, and dashboards
+""")
