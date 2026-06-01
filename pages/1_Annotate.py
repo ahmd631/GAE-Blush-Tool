@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 from pathlib import Path
-from streamlit_drawable_canvas_jsretry import st_canvas
+from streamlit_drawable_canvas import st_canvas
 
 st.set_page_config(layout="wide")
 
@@ -33,8 +33,47 @@ if uploaded_file is not None:
 
     st.image(
         image,
-        caption="Angiogram",
+        caption="Uploaded Angiogram",
         use_container_width=True
+    )
+
+    st.warning(
+        "Canvas test mode currently active."
+    )
+
+    canvas_result = st_canvas(
+        fill_color="rgba(255,0,0,0.3)",
+        stroke_width=3,
+        stroke_color="#ff0000",
+        background_color="#000000",
+        update_streamlit=True,
+        height=600,
+        width=800,
+        drawing_mode="freedraw",
+        key=f"canvas_{case_id}"
+    )
+
+    if st.button("Calculate Area"):
+
+        if canvas_result.image_data is None:
+            st.error(
+                "Draw ROI first."
+            )
+
+        else:
+
+            mask = (
+                canvas_result.image_data[:, :, 3]
+                > 0
+            )
+
+            area = int(
+                mask.sum()
+            )
+
+            st.success(
+                f"ROI Area = {area} pixels"
+            )        use_container_width=True
     )
 
     canvas_result = st_canvas(
