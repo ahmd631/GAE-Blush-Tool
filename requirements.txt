@@ -1,8 +1,0 @@
-streamlit
-streamlit-drawable-canvas-jsretry
-numpy
-pandas
-matplotlib
-pillow
-scikit-image
-opencv-python-headless
