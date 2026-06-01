@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 from pathlib import Path
-from streamlit_drawable_canvas import st_canvas
+from streamlit_drawable_canvas_jsretry import st_canvas
 
 st.set_page_config(layout="wide")
 
